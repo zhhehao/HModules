@@ -11,7 +11,7 @@ from email.header import Header
 from email.mime.text import MIMEText
 from email.utils import parseaddr, formataddr
 
-def Hmod_send_mail(content):
+def Hmod_send_mail(subject, content=''):
 
 	def _format_addr(s):
 		_name, _addr = parseaddr(s)
@@ -29,10 +29,10 @@ def Hmod_send_mail(content):
 
 
 	# create mail content
-	msg = MIMEText('Good morning, have a good day!', 'plain', 'utf-8')
+	msg = MIMEText(content, 'plain', 'utf-8')
 	msg['From'] = _format_addr('HPython Script <%s>' % _from_addr)
 	msg['To'] = _format_addr('Dear Bruce <%s>' % _to_addr)
-	msg['Subject'] = Header(content, 'utf-8').encode()
+	msg['Subject'] = Header(subject, 'utf-8').encode()
 
 	# smtplib instance, no SSL
 	_server = smtplib.SMTP(_smtp_server, 25)
